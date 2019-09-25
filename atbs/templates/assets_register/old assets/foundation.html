@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Derick Mwenda">
+
+    <link rel="icon" href="{% static 'asm_icon.png' %}" />
+    <title>{{ view_name }} | Asset Management System</title>
+    {% include 'load_css.html' %}
+</head>
+
+<body>
+
+    {% block page_body %}
+
+    {% endblock page_body %}
+
+    {% include 'load_js.html' %}
+
+    {% block custom_js %}
+
+    {% endblock custom_js %}
+
+</body>
+
+</html>

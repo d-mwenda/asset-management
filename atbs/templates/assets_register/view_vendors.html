@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <div class="module-option clearfix">
+                <div class="pull-right">
+                    <a href="{% url 'u_add_asset_vendor' %}" class="btn btn-primary">Add Vendor</a>
+                </div>
+            </div>
+            {% if asset_vendors %}
+            <div class="module-body table">
+                <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Telephone Number</th>
+                            <th>Address</th>
+                            <th>Nature</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for vendor in asset_vendors %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'u_edit_vendor' asset_vendor=vendor.id %}">{{ vendor.name }}</a></td>
+                            <td>{{ vendor.tel_no }}</td>
+                            <td>{{ vendor.address }}</td>
+                            <td>{{ vendor.nature_verbose }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>{{ no_assets }}</p>
+            {% endif %}
+{% endblock content %}

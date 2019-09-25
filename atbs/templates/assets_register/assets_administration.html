@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_asset_type' %}" class="btn btn-primary" role="button">
+                            Add Asset Type
+                        </a>
+                    </div>
+                    <h4><strong>Asset Types</strong></h4>
+                </div>
+                <div class="panel-body">
+                {% if asset_types %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Asset types</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for asset in asset_types %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ asset.asset_type }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                {% endif %}
+                    <p>{{ no_asset_types }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_asset_model' %}" class="btn btn-primary" role="button">
+                            Add Asset Model
+                        </a>
+                    </div>
+                    <h4><strong>Asset Models</strong></h4>
+                </div>
+                <div class="panel-body">
+                    {% if asset_models %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Asset Type</th>
+                                    <th>Make</th>
+                                    <th>Model</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for model in asset_models %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ model.asset_type }}</td>
+                                    <td>{{ model.asset_make }}</td>
+                                    <td>{{ model.model_number }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                    {% endif %}
+                    <p>{{ no_asset_models }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_asset_make' %}" class="btn btn-primary" role="button">
+                            Add Asset Make
+                        </a>
+                    </div>
+                    <h4><strong>Asset Makes</strong></h4>
+                </div>
+                <div class="panel-body">
+                    {% if asset_makes %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Asset makes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for make in asset_makes %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ make.asset_make }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                    {% endif %}
+                    <p>{{ no_asset_makes }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_asset_vendor' %}" class="btn btn-primary" role="button">
+                            Add Asset Vendor
+                        </a>
+                    </div>
+                    <h4><strong>Asset Vendors</strong></h4>
+                </div>
+                <div class="panel-body">
+                    {% if asset_vendors %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Vendor name</th>
+                                    <th>Address</th>
+                                    <th>Telephone number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for vendor in asset_vendors %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ vendor.name }}</td>
+                                    <td>{{ vendor.address }}</td>
+                                    <td>{{ vendor.tel_no }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                    {% endif %}
+                    <p>{{ no_asset_vendors }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_asset_owner' %}" class="btn btn-primary" role="button">
+                            Add Asset Owner
+                        </a>
+                    </div>
+                    <h4><strong>Asset Owners</strong></h4>
+                </div>
+                <div class="panel-body">
+                    {% if asset_owners %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Asset owner</th>
+                                    <th>Custodian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for owner in asset_owners %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ owner.owner_name }}</td>
+                                    <td>{{ owner.custodian }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                    {% endif %}
+                    <p>{{ no_asset_owners }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="btn-group pull-right">
+                        <a href="{% url 'u_add_office' %}" class="btn btn-primary" role="button">
+                            Add Office Locations
+                        </a>
+                    </div>
+                    <h4><strong>Office Locations</strong></h4>
+                </div>
+                <div class="panel-body">
+                    {% if asset_makes %}
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Office Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for office in offices %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ office.location }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                    {% endif %}
+                    <p>{{ no_office_locations }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

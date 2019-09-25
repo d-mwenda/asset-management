@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{%  load widget_tweaks %}
+
+{% block content %}
+
+<div class="row">
+    <div class="panel panel-default">
+        <!-- .panel-heading -->
+        <div class="panel-body">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-center">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Search assets</a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-12 col-sm-offset-0 col-xs-12 col-xs-offset-0">
+                                <form method="GET" action="">
+                                    <div class="input-group custom-search-form">
+                                        {% render_field search_form.query class="form-control" placeholder="Search assets by asset number, serial number, make or model" %}
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" role="button" type="submit">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                                <br /><p class="text-center">Use <a href="#">advanced search</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-center">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Search Results</a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            {% if result %}
+                            <p class="text-center">The following assets matched your query:</p>
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Asset Number</th>
+                                                <th>Type</th>
+                                                <th>Make</th>
+                                                <th>Model</th>
+                                                <th>Usage status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for item in result %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td><a href="{% url 'u_asset_profile' asset_id=item.id %}">{{ item.asset_number }}</a></td>
+                                                <td>{{ item.asset_type }}</td>
+                                                <td>{{ item.asset_model.asset_make }}</td>
+                                                <td>{{ item.asset_model }}</td>
+                                                <td>{{ item.get_status_of_usage_display }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- /.table-responsive -->
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- .panel-body -->
+    </div>
+    <!-- /.panel -->
+</div>
+
+{% endblock content %}

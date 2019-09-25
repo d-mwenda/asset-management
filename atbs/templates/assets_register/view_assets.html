@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}
+<style type="text/css">
+
+    .view-name{
+    display: inline;
+    }
+
+    #export-excel{
+    float: right;
+    }
+
+    #view-assets{
+    float: right;
+    }
+
+    .view-assets{
+        display: none;
+    }
+</style>
+{% endblock custom_styles %}
+
+{% block custom_module_head %}
+<span class="export-excel" id="export-excel">
+    <a href="#" onclick="toggleExcelExports()">Export to Excel</a>
+</span>
+{{ message }}
+<span class="view-assets " id="view-assets">
+    <a href="#" onclick="toggleViewAssets()">View Assets</a>
+</span>
+{% endblock custom_module_head %}
+
+{% block content %}
+    <div class="module-body table export-excel">
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Asset Number</th>
+                    <th>Asset Type</th>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Issuance Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if asset_register %}
+            {% for asset in asset_register %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ asset.asset_number }}&nbsp;-&nbsp;<a href="{% url 'u_asset_profile' asset_id=asset.id %}">More details</a></td>
+                    <td>{{ asset.asset_type }}</td>
+                    <td>{{ asset.asset_model.asset_make }}</td>
+                    <td>{{ asset.asset_model }}</td>
+                    {% if asset.get_status_of_usage_display == "In Store" %}
+                    <td>{{ asset.get_status_of_usage_display }}&nbsp;-&nbsp;<a href="{% url 'u_issue_asset' asset=asset.id %}">Issue out</a> </td>
+                    {% elif asset.get_status_of_usage_display == "In Use" %}
+                    <td>{{ asset.get_status_of_usage_display }}&nbsp;-&nbsp;<a href="{% url 'u_withdraw_asset' asset=asset.id %}">Withdraw from use</a> </td>
+                    {% elif asset.get_status_of_usage_display == "Disposed" %}
+                    <td>{{ asset.get_status_of_usage_display }}</td>
+                    {% else %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% else %}
+            </tbody>
+        </table>
+    </div>
+    <p>{{ no_assets }}</p>
+    {% endif %}
+    <div class="module-body view-assets">
+        <form class="form-horizontal" action="" method="POST">
+            {% include 'render_form.html' %}
+            <div class="col-lg-12">
+                <div class="form-group">
+                  <button type="submit" class="btn btn-success">
+                    <span class="glyphicon glyphicon-ok"></span>Export to Excel
+                  </button>
+                  <a href="#" class="btn btn-default" onclick="toggleViewAssets()">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block custom_scripts %}
+    <script type="text/javascript">
+        const toggleExcelExports = () => {
+            exportExcelClasses = document.querySelectorAll(".export-excel");
+            for (i = 0; i < exportExcelClasses.length; i++){
+                exportExcelClasses[i].style.display = "block";
+            }
+
+            viewAssetsClasses = document.querySelectorAll(".view-assets");
+            for (i = 0; i < viewAssetsClasses.length; i++){
+                viewAssetsClasses[i].style.display = "block";
+            }
+        }
+        
+        const toggleViewAssets = () => {
+            viewAssetsClasses = document.querySelectorAll(".view-assets");
+            for (i = 0; i < viewAssetsClasses.length; i++){
+                viewAssetsClasses[i].style.display = "none";
+            }
+
+        exportExcelClasses = document.querySelectorAll(".export-excel");
+        for (i = 0; i < exportExcelClasses.length; i++){
+                exportExcelClasses[i].style.display = "block";
+            }
+        }
+        
+    </script>
+{% endblock custom_scripts %}

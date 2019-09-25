@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+# This template is getting depreciated in the spirit of DRY. It will be replaced by add_asset_metadata.html
+{% block content %}
+    <div class="module-body">
+         <div class="alert alert-warning">
+            <strong>Take care! Modifying an asset type alters the asset type of existing assets with this type!!!!!</strong>
+        </div>
+        <form method="POST" action="" class="form-horizontal row-fluid">
+                {% include 'render_form.html' %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">Add Asset Type</button>
+                    <a href="{% url 'u_view_asset_types' %}" class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

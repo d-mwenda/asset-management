@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="module-body">
+        <form method="POST" action="" class="form-horizontal row-fluid">
+            {% if warning %}
+            <div class="alert alert-warning">
+            <strong>{{ warning }}</strong>
+            </div>
+            {%endif %}
+                {% include 'render_form.html' %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">{{ view_name }}</button>
+                    <a href={{ cancel_url }} class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

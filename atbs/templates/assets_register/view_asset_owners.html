@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+            <div class="module-option clearfix">
+                <div class="pull-right">
+                    <a href="{% url 'u_add_asset_owner' %}" class="btn btn-primary">Add Asset Owner</a>
+                </div>
+            </div>
+            {% if asset_owners %}
+            <div class="module-body table">
+                <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Asset Owner</th>
+                            <th>Owner Description</th>
+                            <th>Asset Custodian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for owner in asset_owners %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'u_edit_asset_owner' asset_owner=owner.id %}"> {{ owner.owner_name }}</a></td>
+                            <td>{{ owner.description }}</td>
+                            <td>{{ owner.custodian }}</td>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <p>{{ no_assets }}</p>
+            {% endif %}
+{% endblock content %}

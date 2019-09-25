@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="module-body">
+        <p> You are issuing out the asset below</p>
+        {% for item in asset %}
+        <dl class="dl-horizontal">
+            <dt>Asset type</dt><dd>{{ item.asset_type }}</dd>
+        <dt>Model</dt><dd>{{ item.asset_model.asset_make }}&nbsp;{{ item.asset_model }}</dd>
+        <dt>Asset Number</dt><dd>{{ item.asset_number }}</dd>
+        {% if issuance_record.asset.components == None %}
+            <dt>Components</dt><dd>No components are registered under this asset. If this is not the case please modify the asset to include the components before issuing it out.</dd>
+        {% else %}
+            <dt>Components</dt><dd>{{ issuance_record.asset.components }}</dd>
+        {% endif %}
+        <dt>Serial Number</dt><dd>{{ item.serial_number }}</dd>
+        <dt>Status</dt><dd>{{ item.get_status_display }}</dd>
+        </dl>
+        {% endfor %}
+        {{ message }}
+        <form method="POST" action="" class="form-horizontal row-fluid">
+            {% if warning %}
+            <div class="alert alert-warning">
+            <strong>{{ warning }}</strong>
+            </div>
+            {%endif %}
+                {% include 'render_form.html' %}<br />
+                {% include 'render_form.html' with form=asset_issuance_form %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">{{ view_name }}</button>
+                    <a href={{ cancel_url }} class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}

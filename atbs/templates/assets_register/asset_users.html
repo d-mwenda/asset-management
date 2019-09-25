@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="btn-group pull-right">
+                <a href="{% url 'u_add_asset_user' %}" class="btn btn-primary" role="button">
+                    Add Asset User
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            {% if asset_users %}
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>User</th>
+                            <th>Program</th>
+                            <th>Office Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in asset_users %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.program }}</td>
+                            <td>{{ user.office_location }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+            {% else %}
+            <p>{{ no_asset_users }}</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}

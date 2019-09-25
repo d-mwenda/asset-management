@@ -1,0 +1,5 @@
+.idea/
+./**/*.pyc
+./**/secret_settings.py
+./**/settings.py
+./**/__pycache__/

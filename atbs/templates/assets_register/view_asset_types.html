@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="module-option clearfix">
+        <div class="pull-right">
+            <a href="{% url 'u_add_asset_type' %}" class="btn btn-primary">Add Asset Type</a>
+        </div>
+    </div>
+    {% if asset_types %}
+    <div class="module-body table">
+        <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Asset Type</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for asset_type in asset_types %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <!--TODO the asset type items should be links to edit the asset type-->
+
+                    <td><a href="{% url 'u_edit_asset_type' asset_type=asset_type.id %}">{{ asset_type.asset_type }}</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>{{ no_assets }}</p>
+    {% endif %}
+{% endblock content %}

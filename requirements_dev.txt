@@ -1,0 +1,8 @@
+Django==2.2
+django-widget-tweaks==1.4.3
+et-xmlfile==1.0.1
+jdcal==1.4.1
+openpyxl==2.6.2
+psycopg2==2.8.2
+pytz==2019.1
+sqlparse==0.3.0

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="module-body">
+        <p>You are withdrawing the asset below from use</p>
+
+        <dl class="dl-horizontal">
+            <dt>Asset type</dt><dd>{{ issuance_record.asset.asset_type }}</dd>
+        <dt>Model</dt><dd>{{ issuance_record.asset.asset_model.asset_make }}&nbsp;{{ item.asset_model }}</dd>
+        <dt>Asset Number</dt><dd>{{ issuance_record.asset.asset_number }}</dd>
+        <dt>Serial Number</dt><dd>{{ issuance_record.asset.serial_number }}</dd>
+        {% if issuance_record.asset.components == None %}
+            <dt>Components</dt><dd>No components are registered under this asset.</dd>
+        {% else %}
+            <dt>Components</dt><dd>{{ issuance_record.asset.components }}</dd>
+        {% endif %}
+        <dt>Status</dt><dd>{{ issuance_record.asset.get_status_display }}</dd>
+        </dl>
+
+        <form method="POST" action="" class="form-horizontal row-fluid">
+            {% if warning %}
+            <div class="alert alert-warning">
+            <strong>{{ warning }}</strong>
+            </div>
+            {%endif %}
+                {% include 'render_form.html' %}
+            <div class="control-group">
+                <div class="controls">
+                    <button type="submit" class="btn btn-success">{{ view_name }}</button>
+                    <a href={{ cancel_url }} class="btn btn-default">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
+
+{% block custom_js %}
+
+{% endblock custom_js %}</title>
+</head>
+<body>
+
+</body>
+</html>
