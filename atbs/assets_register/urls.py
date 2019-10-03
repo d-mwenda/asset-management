@@ -3,11 +3,14 @@ from django.urls import path
 from .views import ListAssets, SearchAsset, AddAsset, IssueAsset, AssetsUsers, AssetsAdministration, AddAssetType, \
     AddAssetModel, AddAssetMake, AddAssetVendor, AddOfficeLocation, AddAssetOwner, AddAssetUser, UpdateAssetType, \
     ViewAssetTypes, ViewAssetMakes, ViewVendors, ViewAssetOwners, ViewAssetModels, ViewOfficeLocations, AssetProfile,\
-    UpdateAssetMake, UpdateAssetModel, UpdateAssetOwner, UpdateAssetVendor, UpdateOfficeLocation, AssetWithdrawal
+    UpdateAssetMake, UpdateAssetModel, UpdateAssetOwner, UpdateAssetVendor, UpdateOfficeLocation, AssetWithdrawal, \
+    AssetStore, UserAssignedAssets
 
 urlpatterns = [
     # Day-to-day asset management tasks
     path(r'list', ListAssets.as_view(), name='u_list_assets'),
+    path(r'asset-store', AssetStore.as_view(), name='u_asset_store'),
+    path(r'user-assigned-assets/user=<user_id>', UserAssignedAssets.as_view(), name='u_user_assigned_assets'),
     path(r'search', SearchAsset.as_view(), name='u_search_asset'),
     path(r'add-asset', AddAsset.as_view(), name='u_add_asset'),
     path(r'issue-asset/asset=<asset>', IssueAsset.as_view(), name='u_issue_asset'),

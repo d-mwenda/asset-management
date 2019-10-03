@@ -1,45 +1,44 @@
-<div class="sidebar">
-    <ul class="widget widget-menu unstyled">
-        <li class="active"><a href=""><i class="menu-icon icon-dashboard"></i>Dashboard
-        </a></li>
-    </ul>
-    <!--/.widget-nav-->
+    <div class="sidebar">
+        <ul class="widget widget-menu unstyled">
+            <li class="active"><a href=""><i class="menu-icon icon-dashboard"></i>Dashboard
+            </a></li>
+        </ul>
+        <!--/.widget-nav-->
 
-
-    <ul class="widget widget-menu unstyled">
-        <li><a class="collapsed" data-toggle="collapse" href="#toggleQuickTools"><i class="menu-icon icon-cog">
+        <ul class="widget widget-menu unstyled">
+            <li><a class="collapsed" data-toggle="collapse" href="#toggleQuickTools"><i class="menu-icon icon-cog">
+                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                </i>Quick Tools </a>
+                    <ul id="toggleQuickTools" class="collapse unstyled">
+                        <li><a href="{% url 'u_generate_password' %}">Random Password Generator</a></li>
+                    </ul>
+            </li>
+            <li><a class="collapsed" data-toggle="collapse" href="#toggleAssetManagement"><i class="menu-icon icon-cog">
             </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-            </i>Quick Tools </a>
-                <ul id="toggleQuickTools" class="collapse unstyled">
-                    <li><a href="{% url 'u_generate_password' %}">Random Password Generator</a></li>
+            </i>Asset Management </a>
+                <ul id="toggleAssetManagement" class="collapse unstyled">
+                    <li><a href="{% url 'u_list_assets' %}"><i class="icon-inbox"></i>Asset Catalogue </a></li>
+    <!--                <li><a href="{% url 'u_search_asset' %}"><i class="icon-inbox"></i>Search Asset </a></li>-->
+                    <li><a href="{% url 'u_asset_store' %}"><i class="icon-inbox"></i>Store </a></li>
+                    <li><a href="{% url 'u_add_asset' %}"><i class="icon-inbox"></i>Add Asset </a></li>
+    <!--                <li><a href=""><i class="icon-inbox"></i>Issue Asset </a></li>-->
+    <!--                <li><a href=""><i class="icon-inbox"></i>Withdraw Asset </a></li>-->
+                    <li><a href="{% url 'u_asset_users' %}"><i class="icon-inbox"></i>Asset Users </a></li>
                 </ul>
-        </li>
-        <li><a class="collapsed" data-toggle="collapse" href="#toggleAssetManagement"><i class="menu-icon icon-cog">
-        </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-        </i>Asset Management </a>
-            <ul id="toggleAssetManagement" class="collapse unstyled">
-                <li><a href="{% url 'u_list_assets' %}"><i class="icon-inbox"></i>Asset Catalogue </a></li>
-<!--                <li><a href="{% url 'u_search_asset' %}"><i class="icon-inbox"></i>Search Asset </a></li>-->
-<!--                <li><a href="#"><i class="icon-inbox"></i>Store </a></li>-->
-                <li><a href="{% url 'u_add_asset' %}"><i class="icon-inbox"></i>Add Asset </a></li>
-<!--                <li><a href=""><i class="icon-inbox"></i>Issue Asset </a></li>-->
-<!--                <li><a href=""><i class="icon-inbox"></i>Withdraw Asset </a></li>-->
-                <li><a href="{% url 'u_asset_users' %}"><i class="icon-inbox"></i>Asset Users </a></li>
-            </ul>
-        </li>
-        <li><a class="collapsed" data-toggle="collapse" href="#toggleAssetMetadataAdministration"><i class="menu-icon icon-cog">
-            </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
-            </i>Metadata Administration </a>
-                <ul id="toggleAssetMetadataAdministration" class="collapse unstyled">
-                    <li><a href="{% url 'u_view_asset_types' %}">View Types</a></li>
-                    <li><a href="{% url 'u_view_asset_makes' %}">View Makes</a></li>
-                    <li><a href="{% url 'u_view_asset_models' %}">View Models</a></li>
-                    <li><a href="{% url 'u_view_asset_owners' %}">View Asset Owners</a></li>
-                    <li><a href="{% url 'u_view_asset_vendors' %}">View Vendors</a></li>
-                    <li><a href="{% url 'u_view_offices' %}">View Offices</a></li>
-                </ul>
-        </li>
-    </ul>
-    <!--/.widget-nav-->
-</div>
-<!--/.sidebar-->
+            </li>
+            <li><a class="collapsed" data-toggle="collapse" href="#toggleAssetMetadataAdministration"><i class="menu-icon icon-cog">
+                </i><i class="icon-chevron-down pull-right"></i><i class="icon-chevron-up pull-right">
+                </i>Metadata Administration </a>
+                    <ul id="toggleAssetMetadataAdministration" class="collapse unstyled">
+                        <li><a href="{% url 'u_view_asset_types' %}">View Types</a></li>
+                        <li><a href="{% url 'u_view_asset_makes' %}">View Makes</a></li>
+                        <li><a href="{% url 'u_view_asset_models' %}">View Models</a></li>
+                        <li><a href="{% url 'u_view_asset_owners' %}">View Asset Owners</a></li>
+                        <li><a href="{% url 'u_view_asset_vendors' %}">View Vendors</a></li>
+                        <li><a href="{% url 'u_view_offices' %}">View Offices</a></li>
+                    </ul>
+            </li>
+        </ul>
+        <!--/.widget-nav-->
+    </div>
+    <!--/.sidebar-->

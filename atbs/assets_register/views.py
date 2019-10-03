@@ -23,6 +23,7 @@ from toolbox.dbqueries import get_all_items, check_if_queryset
 class ListAssets(LoginRequiredMixin, ListView):
     # This class lists all the assets in the register, regardless of their status
     # TODO probably in future this needs to be limited to only active / undisposed assets
+    # TODO users assigned should appear in the list
     template_name = 'assets_register/view_assets.html'
     login_url = ''
     redirect_field_name = ''
@@ -85,6 +86,47 @@ class ListAssets(LoginRequiredMixin, ListView):
             return self.form_invalid(form)
 
 
+class AssetStore(LoginRequiredMixin, ListView):
+    template_name = "assets_register/view_assets.html"
+    model = Assets
+    context_object_name = "asset_register"
+    view_name = "View Assets in the Store"
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        ctx = super(AssetStore, self).get_context_data()
+        ctx['view_name'] = self.view_name
+        return ctx
+
+    def get_queryset(self):
+        queryset = super(AssetStore, self).get_queryset()
+        return queryset.filter(status_of_usage='uis')
+
+
+class UserAssignedAssets(LoginRequiredMixin, ListView):
+    template_name = "assets_register/user_assigned_assets.html"
+    model = AssetIssuanceRegister
+    pk_url_kwarg = "user_id"
+    context_object_name = "asset_register"
+    view_name = "User Assigned Assets"
+
+    def get_queryset(self):
+        """
+        From the queryset, filter the assets assigned to the user in question
+        TODO: consider ordering by returned so that the returned ones appear at the bottom
+        """
+        queryset = super(UserAssignedAssets, self).get_queryset()
+        return queryset.filter(user=self.kwargs['user_id'])
+
+    def get_user(self):
+        return AssetUsers.objects.get(id=self.kwargs['user_id'])
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        ctx = super(UserAssignedAssets, self).get_context_data()
+        ctx['view_name'] = self.view_name
+        ctx['user'] = self.get_user()
+        return ctx
+
+
 class AssetProfile(LoginRequiredMixin, DetailView):
     template_name = "assets_register/asset_profile.html"
     model = Assets
@@ -103,7 +145,7 @@ class AssetProfile(LoginRequiredMixin, DetailView):
 
 
 class SearchAsset(LoginRequiredMixin, FormView):
-    #This class provides both simple and advanced search in the asset database
+    # This class provides both simple and advanced search in the asset database
     # TODO: consider using an already existing strong search engine from pip
     template_name = 'assets_register/search_asset.html'
     context_data = dict()

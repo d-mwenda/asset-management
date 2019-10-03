@@ -3,25 +3,25 @@
     {% include 'top_navigation.html' %}
 {% endblock top_navigation %}
 {% block body_content %}
-<div class="span3">
-{% include 'navigation.html' %}
-</div>
-<!--/.span3-->
-<div class="span9">
-    <div class="content">
-        <div class="module">
-            <div class="module-head">
-                <h3 class="view-name">{{ view_name }}</h3>
-                {% block custom_module_head %}
-
-                {% endblock custom_module_head %}
-            </div>
-                {% block content%}
-
-                {% endblock content %}
-        </div>
-
+    <div class="span3">
+    {% include 'navigation.html' %}
     </div>
-</div>
-<!--/.span9-->
+    <!--/.span3-->
+    <div class="span9">
+        <div class="content">
+            <div class="module">
+                <div class="module-head">
+                    <h3 class="view-name">{{ view_name }}</h3>
+                    {% block custom_module_head %}
+
+                    {% endblock custom_module_head %}
+                </div>
+                    {% block content%}
+
+                    {% endblock content %}
+            </div>
+
+        </div>
+    </div>
+    <!--/.span9-->
 {% endblock body_content %}
