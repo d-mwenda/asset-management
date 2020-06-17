@@ -3,3 +3,4 @@
 ./**/secret_settings.py
 ./**/settings.py
 ./**/__pycache__/
+./**/*.sqlite
