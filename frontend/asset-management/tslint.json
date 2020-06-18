@@ -13,7 +13,7 @@
     "deprecation": {
       "severity": "warning"
     },
-    "component-class-suffix": true,
+    "component-class-suffix": [true, "Page", "Component"],
     "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "directive-selector": [
@@ -140,7 +140,8 @@
     "template-banana-in-box": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "object-literal-sort-keys": false
   },
   "rulesDirectory": [
     "codelyzer"
