@@ -8,7 +8,7 @@ from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 # atbs imports
-from .urls import *
+# from .urls import * this will cause a circular import as the views are already imported in urls
 from .models import Assets, AssetUsers, AssetTypes, AssetMakes, AssetModels, Vendors, AssetOwners, Offices,\
     AssetIssuanceRegister
 from .forms import AddAssetForm, AddAssetTypeForm, AddAssetModelForm, AddAssetMakeForm, AddVendorForm,\
@@ -16,7 +16,7 @@ from .forms import AddAssetForm, AddAssetTypeForm, AddAssetModelForm, AddAssetMa
     AssetWithdrawalForm
 from toolbox.dbqueries import get_all_items, check_if_queryset
 
-# TODO add support for exporting to xlsx
+# TODO add support for exporting to xlsx. Can be a module
 # TODO add support for batch uploading from xlsx and/or csv
 
 
@@ -31,7 +31,7 @@ class ListAssets(LoginRequiredMixin, ListView):
     model = Assets
     form = AssetsExcelExportForm()
 
-    def export_xlsx(self, relevant_fields):
+    def export_xlsx(self, relevant_fields, queryset, *args, **kwargs):
         """
         export all assets to xlsx
         Todo: consider using this method as an util for all excel exports
