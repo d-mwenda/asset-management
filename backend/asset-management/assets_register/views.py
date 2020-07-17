@@ -3,21 +3,107 @@ from django.views.generic import ListView, FormView, CreateView, UpdateView, Det
 from django.db import transaction
 from django.urls import reverse_lazy
 from django.http import HttpResponse, Http404
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+
 # third party libraries imports
+from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-# atbs imports
-# from .urls import * this will cause a circular import as the views are already imported in urls
-from .models import Assets, AssetUsers, AssetTypes, AssetMakes, AssetModels, Vendors, AssetOwners, Offices,\
-    AssetIssuanceRegister
+
+# asset-management imports
+from .models import Assets, AssetUsersDetails, AssetTypes, AssetMakes, AssetModels, Vendors, AssetOwners, Offices,\
+    AssetIssuanceRegister, NonHumanUsers
 from .forms import AddAssetForm, AddAssetTypeForm, AddAssetModelForm, AddAssetMakeForm, AddVendorForm,\
-    AddAssetOwnerForm, AddOfficeLocationForm, AssetIssuanceForm, AddAssetUserForm, SearchForm, AssetsExcelExportForm, \
+    AddAssetOwnerForm, AddOfficeLocationForm, AssetIssuanceForm, SearchForm, AssetsExcelExportForm, \
     AssetWithdrawalForm
+from .serializers import AssetTypesSerializer, AssetMakesSerializer, AssetModelsSerializer, VendorsSerializer, \
+    OfficesSerializer, AssetOwnersSerializer, AssetUsersDetailsSerializer, NonHumanUsersSerializer, AssetsSerializer, \
+    AssetIssuanceRegisterSerializer
 from toolbox.dbqueries import get_all_items, check_if_queryset
 
 # TODO add support for exporting to xlsx. Can be a module
 # TODO add support for batch uploading from xlsx and/or csv
+
+
+class AssetTypesViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Types in the database.
+    """
+    queryset = AssetTypes.objects.all()
+    serializer_class = AssetTypesSerializer
+
+
+class AssetMakesViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Makes in the database.
+    """
+    queryset = AssetMakes.objects.all()
+    serializer_class = AssetMakesSerializer
+
+
+class AssetModelsViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = AssetModels.objects.all()
+    serializer_class = AssetModelsSerializer
+
+
+class VendorsViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Vendors in the database.
+    """
+    queryset = Vendors.objects.all()
+    serializer_class = VendorsSerializer
+
+
+class OfficesViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = Offices.objects.all()
+    serializer_class = OfficesSerializer
+
+
+class AssetOwnersViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = AssetOwners.objects.all()
+    serializer_class = AssetOwnersSerializer
+
+
+class AssetUsersDetailsViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = AssetUsersDetails.objects.all()
+    serializer_class = AssetUsersDetailsSerializer
+
+
+class NonHumanUsersViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = NonHumanUsers.objects.all()
+    serializer_class = NonHumanUsersSerializer
+
+
+class AssetsViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Assets in the database.
+    """
+    queryset = Assets.objects.all()
+    serializer_class = AssetsSerializer
+
+
+class AssetIssuanceRegisterViewSet(ModelViewSet):
+    """
+    This class offers an API endpoint for operations on all Asset Models in the database.
+    """
+    queryset = AssetIssuanceRegister.objects.all()
+    serializer_class = AssetIssuanceRegisterSerializer
 
 
 class ListAssets(LoginRequiredMixin, ListView):
@@ -63,7 +149,6 @@ class ListAssets(LoginRequiredMixin, ListView):
         ctx = super(ListAssets, self).get_context_data()
         ctx['view_name'] = 'View Assets'
         ctx['form'] = self.form
-        # ctx.update(kwargs)
         return ctx
 
     def form_valid(self,request, form):
@@ -118,7 +203,7 @@ class UserAssignedAssets(LoginRequiredMixin, ListView):
         return queryset.filter(user=self.kwargs['user_id'])
 
     def get_user(self):
-        return AssetUsers.objects.get(id=self.kwargs['user_id'])
+        return AssetUsersDetails.objects.get(id=self.kwargs['user_id'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         ctx = super(UserAssignedAssets, self).get_context_data()
@@ -311,14 +396,14 @@ class AssetsUsers(LoginRequiredMixin, ListView):
     context_data = dict()
     context_data['view_name'] = 'Assets Users'
 
-    def get(self, request, *args, **kwargs):
-        context_data = self.context_data
-        asset_users = get_all_items(AssetUsers)
-        if check_if_queryset(asset_users):
-            context_data['asset_users'] = asset_users
-        else:
-            context_data['no_asset_users'] = asset_users
-        return render(request, self.template_name, context_data)
+    # def get(self, request, *args, **kwargs):
+    #     context_data = self.context_data
+    #     # asset_users = get_all_items(AssetUsers) todo debug this
+    #     if check_if_queryset(asset_users):
+    #         context_data['asset_users'] = asset_users
+    #     else:
+    #         context_data['no_asset_users'] = asset_users
+    #     return render(request, self.template_name, context_data)
 
     def post(self, request, *args, **kwargs):
         pass
@@ -514,18 +599,18 @@ class AddAssetUser(LoginRequiredMixin, FormView):
         context_data = self.context_data
         # Todo: the below url is just a placeholder to prevent errors. create a list user view
         context_data['cancel_url'] = reverse_lazy('u_list_assets')
-        context_data['form'] = AddAssetUserForm
+        # context_data['form'] = AddAssetUserForm
         return render(request, self.template_name, context_data)
 
-    def post(self, request, *args, **kwargs):
-        context_data = self.context_data
-        add_asset_user_form = AddAssetUserForm(request.POST)
-        if add_asset_user_form.is_valid():
-            add_asset_user_form.save()
-            context_data['message'] = 'Asset user saved successfully.'
-        else:
-            context_data['error_message'] = 'Form is not validly completed'
-        return render(request, self.template_name, context_data)
+    # def post(self, request, *args, **kwargs):
+    #     context_data = self.context_data
+    #     # add_asset_user_form = AddAssetUserForm(request.POST)
+    #     # if add_asset_user_form.is_valid():
+    #     #     add_asset_user_form.save()
+    #     #     context_data['message'] = 'Asset user saved successfully.'
+    #     else:
+    #         context_data['error_message'] = 'Form is not validly completed'
+    #     return render(request, self.template_name, context_data)
 
 
 # The views below handle the listing of various asset management parameters

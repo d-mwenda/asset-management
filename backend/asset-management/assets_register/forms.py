@@ -4,7 +4,7 @@ from django.forms import Form, ModelForm, Textarea, TextInput, HiddenInput
 from django.utils.timezone import now
 # atbs imports
 from .models import Assets, AssetTypes, AssetModels, AssetMakes, Vendors, AssetOwners, Offices, AssetIssuanceRegister, \
-    AssetUsers
+    AssetUsersDetails
 
 
 class AddAssetForm(ModelForm):
@@ -101,12 +101,12 @@ class WithdrawAssetForm(ModelForm):
         # widgets = {}
 
 
-class AddAssetUserForm(ModelForm):
-
-    class Meta:
-
-        model = AssetUsers
-        fields = ('name', 'program', 'office_location',)
+# class AddAssetUserForm(ModelForm):
+# todo rethink this form
+#     class Meta:
+#
+#         model = AssetUsersDetails
+#         fields = ('name', 'program', 'office_location',)
 
 
 class SearchForm(Form):

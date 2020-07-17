@@ -16,7 +16,7 @@ class AssetTypes(models.Model):
     This model stores all the possible types/classes of assets.
     """
     asset_type = models.CharField(max_length=30, null=False, blank=False, db_index=True, unique=True)
-    type_description = models.CharField(max_length=1000, null=True, blank=True)
+    type_description = models.CharField(max_length=1000, null=True, blank=True, verbose_name="asset type description")
 
     def __str__(self):
         return self.asset_type
@@ -84,7 +84,7 @@ class AssetOwners(models.Model):
     owner_name = models.CharField(max_length=30, null=False, blank=False,
                                   verbose_name="Which department owns the asset")
     description = models.CharField(max_length=300, null=True)
-    custodian = models.ForeignKey('AssetUsers', on_delete=models.CASCADE, null=True, blank=True)
+    custodian = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.owner_name
@@ -170,7 +170,7 @@ class AssetIssuanceRegister(models.Model):
 
     asset = models.ForeignKey(Assets, on_delete=models.CASCADE, null=False, db_index=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, db_index=True)
-    date_issued = models.DateField(null=False, blank=True, default=now)
+    date_issued = models.DateField(null=False, blank=True, default=now())
     comment_on_issue = models.CharField(max_length=500, null=True, blank=True)
     returned = models.BooleanField(null=False, blank=True, default=False)
     date_returned = models.DateField(null=True)

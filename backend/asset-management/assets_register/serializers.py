@@ -21,14 +21,14 @@ class AssetMakesSerializer(serializers.ModelSerializer):
         fields = ['asset_make']
 
 
-class AssetModelsSerializers(serializers.ModelSerializer):
+class AssetModelsSerializer(serializers.ModelSerializer):
     """
     This serializer class serializes the AssetModels model of the assets-register app
     """
     class Meta:
         model = AssetModels
         fields = ['asset_make', 'asset_type', 'model_number', 'model_description']
-        depth = 1
+        # depth = 2
 
 
 class VendorsSerializer(serializers.ModelSerializer):
@@ -82,9 +82,9 @@ class AssetsSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Assets
-        fields = ['serial_number', 'status', 'asset_type', 'asset_model', 'components', 'vendor', 'date_of_purchase',
-                  'warranty_end_date', 'purchase_value', 'purchase_currency', 'expected_value', 'owner',
-                  'status_of_usage']
+        fields = ['serial_number', 'asset_number', 'status', 'asset_type', 'asset_model', 'components', 'vendor',
+                  'date_of_purchase', 'warranty_end_date', 'purchase_value', 'purchase_currency', 'expected_life',
+                  'owner', 'status_of_usage']
 
 
 class AssetIssuanceRegisterSerializer(serializers.ModelSerializer):
