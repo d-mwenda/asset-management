@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>asset-owners</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-list>
+        <ion-item *ngFor="let assetOwner of assetOwners">
+            <p>{{assetOwner.id}}</p>
+            <p>{{assetOwner.owner_name}}</p>
+            <p>{{assetOwner.description}}</p>
+            <p>{{assetOwner.custodian_last_name}}</p>
+        </ion-item>
+    </ion-list>
+</ion-content>

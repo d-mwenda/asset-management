@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Assets List</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <p *ngIf="assetTypes">we have asset types :)</p>
+    <ion-item *ngFor="let assetType of assetTypes;">
+        <p>{{ assetType.asset_type }}</p>
+    </ion-item>
+</ion-content>

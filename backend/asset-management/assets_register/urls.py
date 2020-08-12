@@ -6,9 +6,7 @@ from .views import ListAssets, SearchAsset, AddAsset, IssueAsset, AssetsUsers, A
     AddAssetModel, AddAssetMake, AddAssetVendor, AddOfficeLocation, AddAssetOwner, AddAssetUser, UpdateAssetType, \
     ViewAssetTypes, ViewAssetMakes, ViewVendors, ViewAssetOwners, ViewAssetModels, ViewOfficeLocations, AssetProfile,\
     UpdateAssetMake, UpdateAssetModel, UpdateAssetOwner, UpdateAssetVendor, UpdateOfficeLocation, AssetWithdrawal, \
-    AssetStore, UserAssignedAssets, AssetTypesViewSet, AssetMakesViewSet, AssetModelsViewSet, VendorsViewSet, \
-    OfficesViewSet, AssetOwnersViewSet, AssetUsersDetailsViewSet, NonHumanUsersViewSet, AssetsViewSet, \
-    AssetIssuanceRegisterViewSet
+    AssetStore, UserAssignedAssets
 
 urlpatterns = [
     # Day-to-day asset management tasks
@@ -52,15 +50,3 @@ urlpatterns = [
     path(r'edit-asset-office/office=<office>', UpdateOfficeLocation.as_view(), name='u_edit_office_location'),
 ]
 
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'asset-types/api/', AssetTypesViewSet)
-router.register(r'asset-makes/api/', AssetMakesViewSet)
-router.register(r'asset-models/api/', AssetModelsViewSet)
-router.register(r'vendors/api/', VendorsViewSet)
-router.register(r'offices/api/', OfficesViewSet)
-router.register(r'asset-owners/api/', AssetOwnersViewSet)
-router.register(r'asset-users-details/api/', AssetUsersDetailsViewSet)
-router.register(r'non-human-users/api/', NonHumanUsersViewSet)
-router.register(r'assets/api/', AssetsViewSet)
-router.register(r'asset-issuance-register/api/', AssetIssuanceRegisterViewSet)
-urlpatterns += router.urls

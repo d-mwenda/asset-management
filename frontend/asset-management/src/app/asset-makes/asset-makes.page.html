@@ -1,0 +1,12 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>asset-makes</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <p *ngIf="assetMakes">we have asset makes :)</p>
+    <ion-item *ngFor="let assetMake of assetMakes;">
+        <p>{{ assetMake.asset_make }}</p>
+    </ion-item>
+</ion-content>

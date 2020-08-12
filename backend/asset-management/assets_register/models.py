@@ -89,7 +89,6 @@ class AssetOwners(models.Model):
     def __str__(self):
         return self.owner_name
 
-
 class AssetUsersDetails(models.Model):
     """
     This model maintains the more details of users beyond those django's users' model supports by default.

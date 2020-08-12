@@ -21,6 +21,7 @@ from django.contrib.auth import views as authentication_views
 # atbs imports
 from index import urls as index
 from assets_register import urls as assets_register
+from assets_register import api_urls as assets_register_api
 from assets_borrowed import urls as borrowed_assets
 from quick_tools import urls as quick_tools
 
@@ -30,6 +31,8 @@ urlpatterns = [
     path('accounts/logout/', authentication_views.LogoutView.as_view(template_name='accounts/login.html'), name='logout'),
     # path('accounts/', include(authentication_urls)),
     path('', include(index)),
-    path('asset-management/', include(assets_register)),
+    path('asset-register-management/', include(assets_register)),
+    path('api/asset-register-management/', include(assets_register_api)),
+
     path('quick-tools/', include(quick_tools))
 ]

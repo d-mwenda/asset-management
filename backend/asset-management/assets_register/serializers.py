@@ -25,9 +25,12 @@ class AssetModelsSerializer(serializers.ModelSerializer):
     """
     This serializer class serializes the AssetModels model of the assets-register app
     """
+    asset_make_name = serializers.CharField(source='asset_make.asset_make', read_only=True)
+    asset_type_name = serializers.CharField(source='asset_type.asset_type', read_only=True)
+
     class Meta:
         model = AssetModels
-        fields = ['asset_make', 'asset_type', 'model_number', 'model_description']
+        fields = ['asset_make', 'asset_make_name', 'asset_type','asset_type_name', 'model_number', 'model_description']
         # depth = 2
 
 
@@ -46,16 +49,19 @@ class OfficesSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Offices
-        fields = ['location']
+        fields = ['id', 'location']
 
 
 class AssetOwnersSerializer(serializers.ModelSerializer):
     """
     This serializer class serializes the AssetOwners Model of the assets-register app
     """
+    custodian_first_name = serializers.CharField(source='custodian.first_name', read_only=True)
+    custodian_last_name = serializers.CharField(source='custodian.last_name', read_only=True)
+
     class Meta:
         model = AssetOwners
-        fields = ['owner_name', 'description', 'custodian']
+        fields = ['id', 'owner_name', 'description', 'custodian', 'custodian_first_name', 'custodian_last_name']
 
 
 class AssetUsersDetailsSerializer(serializers.ModelSerializer):

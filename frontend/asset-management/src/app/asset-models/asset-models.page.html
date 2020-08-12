@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>asset-models</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <p *ngIf="assetModels">we have asset types :)</p>
+    <ion-item *ngFor="let assetModel of assetModels;">
+        <p>{{ assetModel.asset_type }}</p>
+        <p>{{ assetModel.asset_type_name }}</p>
+        <p>{{ assetModel.asset_make }}</p>
+        <p>{{ assetModel.asset_make_name }}</p>
+        <p>{{ assetModel.model_number }}</p>
+        <p>{{ assetModel.model_description }}</p>
+    </ion-item>
+</ion-content>
